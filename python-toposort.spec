@@ -7,21 +7,21 @@
 Summary:	Topological sort algorithm
 Summary(pl.UTF-8):	Algorytm sortowania topologicznego
 Name:		python-toposort
-Version:	1.5
-Release:	5
+Version:	1.7
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/toposort/
 Source0:	https://files.pythonhosted.org/packages/source/t/toposort/toposort-%{version}.tar.gz
-# Source0-md5:	472cf86871d19b66d7cb18412c026959
+# Source0-md5:	0cf6b3efe4d2dc046cede074f8e44099
 URL:		https://pypi.org/project/toposort/
 %if %{with python2}
 BuildRequires:	python-modules >= 1:2.7
-BuildRequires:	python-setuptools
+BuildRequires:	python-setuptools >= 1:42
 %endif
 %if %{with python3}
 BuildRequires:	python3-modules >= 1:3.3
-BuildRequires:	python3-setuptools
+BuildRequires:	python3-setuptools >= 1:42
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -70,11 +70,18 @@ wierzchołka v, u występuje przed v.
 %prep
 %setup -q -n toposort-%{version}
 
+# stub for setuptools
+cat >setup.py <<EOF
+from setuptools import setup
+setup()
+EOF
+
 %build
 %if %{with python2}
 %py_build
 
 %if %{with tests}
+PYTHONPATH=$(pwd)/src \
 %{__python} -m test.test_toposort
 %endif
 %endif
@@ -83,6 +90,7 @@ wierzchołka v, u występuje przed v.
 %py3_build
 
 %if %{with tests}
+PYTHONPATH=$(pwd)/src \
 %{__python3} -m test.test_toposort
 %endif
 %endif
