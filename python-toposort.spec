@@ -8,7 +8,7 @@ Summary:	Topological sort algorithm
 Summary(pl.UTF-8):	Algorytm sortowania topologicznego
 Name:		python-toposort
 Version:	1.7
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/toposort/
